@@ -2,6 +2,10 @@
 const {
   Model
 } = require('sequelize');
+
+const { Enums } = require('../utils/common');
+const { ENABLE, DISABLE } = Enums.COMMENTS;
+
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
@@ -33,7 +37,13 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type : DataTypes.INTEGER,
       allowNull: false
-   }
+   },
+   comments : {
+      type: DataTypes.ENUM,
+      values : [ ENABLE, DISABLE ],
+      defaultValue: ENABLE,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'Post',

@@ -1,4 +1,8 @@
 'use strict';
+
+const { Enums } = require('../utils/common');
+const { ENABLE, DISABLE } = Enums.COMMENTS;
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -26,6 +30,12 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
      },
+     comments : {
+      type: Sequelize.ENUM,
+      values : [ ENABLE, DISABLE ],
+      defaultValue: ENABLE,
+      allowNull: false,
+    },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
