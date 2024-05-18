@@ -24,10 +24,14 @@ async function createComment(data) {
     }
 }
 async function updateComment(id, data) {
-    
     try {
         const comment = await commentRepo.update(id, data);
-        return comment;
+        if(comment === 0) {
+            return null;
+        }
+        console.log(id);
+        const updatedComment = await commentRepo.get(id);
+        return updatedComment;
     }
     catch(error) {
         console.log(error)
@@ -44,7 +48,7 @@ async function updateComment(id, data) {
 }
 async function deleteComment(data) {
     try {
-        const comment = await commentRepo.destroy(data);
+        const comment = await commentRepo.destroyComment(data);
         return comment;
     }
     catch(error) {
