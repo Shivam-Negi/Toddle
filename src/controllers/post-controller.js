@@ -28,6 +28,8 @@ async function createPost(req, res) {
             media : req.body.media,
             userId : req.user,
             comments : req.body.comments,
+            isScheduled : req.body.isScheduled,
+            scheduledAt : req.body.scheduledAt,
         });
         SuccessResponse.data = post;
         return res

@@ -43,6 +43,15 @@ module.exports = (sequelize, DataTypes) => {
       values : [ ENABLE, DISABLE ],
       defaultValue: ENABLE,
       allowNull: false,
+    },
+    isScheduled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    scheduledAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     }
   }, {
     sequelize,
