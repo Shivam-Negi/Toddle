@@ -14,4 +14,7 @@ router.post('/', AuthRequestMiddlewares.checkAuth,
 router.delete('/:id', AuthRequestMiddlewares.checkAuth,
                         PostController.removePost);
 
+router.get('/feed', AuthRequestMiddlewares.checkAuth, 
+                        PostController.getFeed);
+
 module.exports = router;
