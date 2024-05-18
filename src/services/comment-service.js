@@ -23,10 +23,10 @@ async function createComment(data) {
         throw new AppError('Unable to comment on this post', StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
-async function updateComment(data) {
+async function updateComment(id, data) {
     
     try {
-        const comment = await commentRepo.updateComment(data);
+        const comment = await commentRepo.update(id, data);
         return comment;
     }
     catch(error) {
@@ -44,7 +44,7 @@ async function updateComment(data) {
 }
 async function deleteComment(data) {
     try {
-        const comment = await commentRepo.deleteComment(data);
+        const comment = await commentRepo.destroy(data);
         return comment;
     }
     catch(error) {

@@ -26,11 +26,13 @@ async function getUser(req, res) {
 
 async function createPost(req, res) {    
     try {
+        console.log(req.body);
         // console.log('inside controller')
         const post = await PostService.createPost({
             content : req.body.content,
             media : req.body.media,
-            userId : req.user
+            userId : req.user,
+            comments : req.body.comments,
         });
         SuccessResponse.data = post;
         return res

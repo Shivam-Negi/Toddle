@@ -27,9 +27,8 @@ async function createComment(req, res) {
 }
 async function updateComment(req, res) {
     try {
-        const comment = await CommentService.updateComment({
-            userId : req.user,
-            postId : Number(req.body.postId),
+        const comment = await CommentService.updateComment(req.params.id, 
+        {
             content : req.body.content,
         });
         SuccessResponse.data = comment;
@@ -46,10 +45,7 @@ async function updateComment(req, res) {
 }
 async function deleteComment(req, res) {
     try {
-        const comment = await CommentService.deleteComment({
-            userId : req.user,
-            postId : Number(req.body.postId),
-        });
+        const comment = await CommentService.deleteComment(req.params.id);
         SuccessResponse.data = comment;
         return res
         .status(StatusCodes.OK)

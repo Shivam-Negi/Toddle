@@ -1,8 +1,12 @@
 const { StatusCodes } = require('http-status-codes');
 
 const { ErrorResponse } = require('../utils/common');
-const { UserService } = require('../services');
+const { UserService} = require('../services');
+const {PostRepository} = require('../repositories');
 const AppError = require('../utils/errors/app-error');
+const {Enums} = require('../utils/common');
+const {DISABLE} = Enums.COMMENTS;
+const postRepo = new PostRepository();
 
 function validateAuthRequest(req, res, next) {
     if(!req.body.uid) {
@@ -36,7 +40,27 @@ async function checkAuth(req, res, next) {
     }
 }
 
+async function checkCommentPermission(req, res, next) {
+    try {
+        const post = await postRepo.get(Number(req.body.postId));
+        console.log(post);
+        if(post.comments === DISABLE) {
+            ErrorResponse.message = 'comments has been disabled by the user on this post';
+            ErrorResponse.error = new AppError(['comments disabled on this post'], StatusCodes.BAD_REQUEST);
+            return res
+                    .status(StatusCodes.BAD_REQUEST)
+                    .json(ErrorResponse);
+        }
+        next();
+    } catch (error) {
+        return res
+                .status(error.statusCode)
+                .json(error);
+    }
+}
+
 module.exports = {
     validateAuthRequest,
+    checkCommentPermission,
     checkAuth,
 }

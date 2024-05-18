@@ -6,11 +6,11 @@ const { AuthRequestMiddlewares } = require('../../middlewares');
 
 const router = express.Router();
 
-router.post('/', AuthRequestMiddlewares.checkAuth, CommentController.createComment);
+router.post('/', AuthRequestMiddlewares.checkAuth, AuthRequestMiddlewares.checkCommentPermission, CommentController.createComment);
 
-router.patch('/', AuthRequestMiddlewares.checkAuth, CommentController.updateComment);
+router.patch('/:id', AuthRequestMiddlewares.checkAuth, CommentController.updateComment);
 
-router.delete('/', AuthRequestMiddlewares.checkAuth, CommentController.deleteComment);
+router.delete('/:id', AuthRequestMiddlewares.checkAuth, CommentController.deleteComment);
 
 
 
