@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const { PostService } = require('../services');
+const { PostService, UserService } = require('../services');
 
 const { SuccessResponse, ErrorResponse } = require('../utils/common');
 
@@ -64,7 +64,24 @@ async function removePost(req, res) {
     }
 }
 
+async function getFeed(req, res) {
+    try {
+        const userId = req.user;
+        const response = await PostService.getFollowing(userId);
+        SuccessResponse.data = response;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createPost,
     removePost,
+    getFeed,
 }

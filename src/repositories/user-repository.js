@@ -24,6 +24,19 @@ class UserRepository extends CrudRepository {
         });
         return user;
     }
+    async getFollowing(userId) {
+        const following = await User.findAll({
+            include: {
+              model: User,
+              as: 'Following',
+              attributes: ['id'],
+              through: { attributes: [] }
+            },
+            where: { id: userId }
+          });
+
+        return following;
+    }
 }
 
 module.exports = UserRepository;
