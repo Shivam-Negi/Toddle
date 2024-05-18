@@ -6,7 +6,8 @@ const { AuthRequestMiddlewares } = require('../../middlewares');
 
 const router = express.Router();
 
-// router.get('/:id', UserController.getUser);
+router.get('/:id', AuthRequestMiddlewares.checkAuth, 
+                PostController.getPostDetails);
 
 router.post('/', AuthRequestMiddlewares.checkAuth, 
                         PostController.createPost);

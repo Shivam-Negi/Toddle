@@ -3,15 +3,10 @@ const { PostService, UserService } = require('../services');
 
 const { SuccessResponse, ErrorResponse } = require('../utils/common');
 
-
-/**
- * POST : /user/:id 
- * req-body {}
- */
-async function getUser(req, res) {
+async function getPostDetails(req, res) {
     try {
-        const user = await UserService.getUser(req.params.id);
-        SuccessResponse.data = user;
+        const info = await PostService.getPostDetails(req.params.id);
+        SuccessResponse.data = info;
         return res
                 .status(StatusCodes.OK)
                 .json(SuccessResponse);
@@ -84,4 +79,5 @@ module.exports = {
     createPost,
     removePost,
     getFeed,
+    getPostDetails,
 }
