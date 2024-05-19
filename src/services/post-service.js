@@ -80,7 +80,7 @@ async function getFollowing(userId) {
         const followingIds = following[0].Following.map(user => user.id);
         followingIds.push(userId); // Include the user's own ID
         
-        // console.log('followings : ', followingIds);
+        console.log('followings : ', followingIds);
         const posts = await postRepo.getFeed(followingIds);
         const formattedPosts = posts.map(post => ({
             id: post.id,

@@ -5,6 +5,7 @@ const { SuccessResponse, ErrorResponse } = require('../utils/common');
 
 async function getPostDetails(req, res) {
     try {
+        console.log('hi       ');
         const info = await PostService.getPostDetails(req.params.id);
         SuccessResponse.data = info;
         return res
@@ -63,6 +64,7 @@ async function removePost(req, res) {
 
 async function getFeed(req, res) {
     try {
+        console.log('inside controller : ');
         const userId = req.user;
         const response = await PostService.getFollowing(userId);
         SuccessResponse.data = response;

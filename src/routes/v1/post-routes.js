@@ -6,16 +6,17 @@ const { AuthRequestMiddlewares } = require('../../middlewares');
 
 const router = express.Router();
 
-router.get('/:id', AuthRequestMiddlewares.checkAuth, 
-                PostController.getPostDetails);
 
 router.post('/', AuthRequestMiddlewares.checkAuth, 
-                        PostController.createPost);
+                    PostController.createPost);
 
 router.delete('/:id', AuthRequestMiddlewares.checkAuth,
                         PostController.removePost);
 
 router.get('/feed', AuthRequestMiddlewares.checkAuth, 
-                        PostController.getFeed);
+                    PostController.getFeed);
+
+router.get('/:id', AuthRequestMiddlewares.checkAuth, 
+                PostController.getPostDetails);
 
 module.exports = router;
